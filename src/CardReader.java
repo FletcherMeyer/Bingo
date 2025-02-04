@@ -9,7 +9,17 @@ import java.util.Scanner;
  * @date 1/30/2025
  */
 public class CardReader {
-    CardReader(){
+    Vector<BingoCard> Cards;
+
+    public Vector<BingoCard> getCards() {
+        return Cards;
+    }
+
+    public void setCards(Vector<BingoCard> cards) {
+        Cards = cards;
+    }
+
+    CardReader() {
         Vector<BingoCard> BingoCards = new Vector<>();
 
         try {
@@ -24,14 +34,14 @@ public class CardReader {
 
                 char[] lineAsChars = data.toCharArray();
                 /* Finds a new Bingo card in the file. */
-                if (lineAsChars[0] == 'C'){
+                if (lineAsChars[0] == 'C') {
                     BingoCard newCard = new BingoCard(cardData);
                     BingoCards.add(newCard);
                     // System.out.println("NEW CARD");
                     // newCard.printCard();
 
                     // System.out.println(data);
-                    cardData = new Vector<>();
+                    cardData.clear();
                 } else {
                     Vector<Integer> column = stringToInts(data);
                     cardData.add(column);
@@ -40,23 +50,26 @@ public class CardReader {
             }
 
             fileReader.close();
-        } catch (FileNotFoundException error){
-            System.out.println("Error finding Bingo card data...");            
+        } catch (FileNotFoundException error) {
+            System.out.println("Error finding Bingo card data...");
         }
+        this.Cards = BingoCards;
     }
 
-    private static Vector<Integer> stringToInts(String input){
-        /* Expecting input like:
-         * "4, 20, 30, 50, 60" */
+    private static Vector<Integer> stringToInts(String input) {
+        /*
+         * Expecting input like:
+         * "4, 20, 30, 50, 60"
+         */
 
         char[] asArray = input.toCharArray();
-        
+
         Vector<Integer> intVector = new Vector<>();
 
         String currentInt = "";
 
         for (char c : asArray) {
-            if (c == ','){
+            if (c == ',') {
                 intVector.add(Integer.parseInt(currentInt));
                 currentInt = "";
             } else if (c == ' ') {

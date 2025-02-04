@@ -1,15 +1,33 @@
 import java.util.Vector;
 
+
+/**
+ * @author Fletcher Meyer
+ */
 public class Bingo {
     private Vector<String> balls;
     private BingoCard card;
 
     public Bingo(){
-        this.card = new BingoCard();
+        CardReader readCards = new CardReader();
+        readCards.getCards().get(0);
+        this.card = readCards.getCards().get(0);
+    }
+
+    public BingoCard getCard() {
+        return card;
     }
 
     public Vector<String> getBalls() {
         return balls;
+    }
+
+    public void setBalls(Vector<String> balls) {
+        this.balls = balls;
+    }
+
+    public void setCard(BingoCard card) {
+        this.card = card;
     }
 
     public String drawABall(){

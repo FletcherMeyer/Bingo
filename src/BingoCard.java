@@ -51,8 +51,8 @@ public class BingoCard {
         return firstPos;
     }
 
-    public void mark(int[] location) {
-        marks.get(location[0]).set(location[1], 1);
+    public void mark(int loc1, int loc2) {
+        marks.get(loc1 - 1).set(loc2 - 1, 1);
     }
 
     public Vector<Vector<Integer>> getColumns() {
@@ -63,10 +63,54 @@ public class BingoCard {
         this.columns = columns;
     }
 
-    public void printCard() {
-        for (Vector<Integer> column : this.columns) {
+    public void printMarkedCard(){
+        System.out.println("     B    I    N    G    O");
+        int row = 1;
+        for (Vector<Integer> column : this.marks) {
+            System.out.print(row + " | ");
+            row++;
             for (Integer value : column) {
-                System.out.print(value + ", ");
+                if (Integer.toString(value).length() == 1){
+                    System.out.print(" ");
+                }
+                System.out.print(value + " | ");
+            }
+            System.out.println();
+        }
+
+        
+    }
+    public void printMarkedCard(int q){
+        System.out.println("     B    I    N    G    O");
+        
+        for (int i = 0; i < this.marks.size(); i++){
+            System.out.print((i+1) + " | ");
+            Vector<Integer> currentCol = this.marks.get(i);
+            for (int ii = 0; ii < currentCol.size(); ii++){
+                if (currentCol.get(ii) == 0){
+                    if (Integer.toString(this.columns.get(i).get(ii)).length() == 1){
+                        System.out.print(" ");
+                    }
+                    System.out.print(this.columns.get(i).get(ii) + " | ");
+                } else {
+                    System.out.print(" X | ");
+                }
+            }
+            System.out.println();
+        }
+
+        
+    }
+
+    public void printCardValues() {
+        System.out.println("   B    I    N    G    O");
+        for (Vector<Integer> column : this.columns) {
+            System.out.print("| ");
+            for (Integer value : column) {
+                if (Integer.toString(value).length() == 1){
+                    System.out.print(" ");
+                }
+                System.out.print(value + " | ");
             }
             System.out.println();
         }
